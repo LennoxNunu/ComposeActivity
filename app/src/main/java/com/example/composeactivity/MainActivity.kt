@@ -6,8 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,12 +23,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column(
+            Row(
                 modifier = Modifier
                     .background(color = Color.LightGray)
                     .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Greeting("AB")
                 Greeting("CDEF")
@@ -45,7 +43,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String) {
     Text(
-        text = "Hello $name!",
+        text = name,
         fontSize = 32.sp,
         fontWeight = FontWeight.Bold,
         color = Color.Red,
@@ -56,6 +54,7 @@ fun Greeting(name: String) {
             .padding(10.dp)
     )
 }
+
 
 @Preview(showBackground = true)
 @Composable
