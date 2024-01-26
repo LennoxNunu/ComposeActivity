@@ -1,43 +1,180 @@
 package com.example.composeactivity
 
+import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.composeactivity.ui.theme.ComposeActivityTheme
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeActivityTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+            BoxExample3()
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+fun BoxExample1() {
+    Box(
+        modifier = Modifier
+            .background(color = Color.Green)
+            .size(180.dp, 300.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .background(color = Color.Yellow)
+                .size(125.dp, 100.dp)
+                .align(Alignment.TopEnd)
+        ) {
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeActivityTheme {
-        Greeting("Android")
+        }
+
+        Text(
+            text = "Hi",
+            style = MaterialTheme.typography.h3,
+            modifier = Modifier
+                .background(color = Color.White)
+                .size(90.dp, 50.dp)
+                .align(Alignment.BottomCenter)
+
+
+        )
     }
 }
+
+@Composable
+fun BoxExample2() {
+    Box(
+        modifier = Modifier
+            .background(color = Color.LightGray)
+            .fillMaxSize()
+    ) {
+
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.TopStart),
+            text = "TopStart"
+        )
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.TopCenter),
+            text = "TopCenter"
+        )
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.TopEnd),
+            text = "TopEnd"
+        )
+
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.CenterStart),
+            text = "CenterStart"
+        )
+
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.Center),
+            text = "Center"
+        )
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.CenterEnd),
+            text = "CenterEnd"
+        )
+
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.BottomStart),
+            text = "BottomStart"
+        )
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.BottomCenter),
+            text = "BottomCenter"
+        )
+        Text(
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(10.dp)
+                .align(Alignment.BottomEnd),
+            text = "BottomEnd"
+        )
+    }
+}
+
+@Composable
+fun BoxExample3() {
+    Box() {
+        Image(
+            painter = painterResource(id = R.drawable.beach_resort),
+            contentDescription = "beach resort"
+        )
+        Text(
+            text = "Beach Resort",
+            style = MaterialTheme.typography.h4,
+            color = Color.Black,
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+        )
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.textButtonColors(
+                backgroundColor = Color.White,
+                contentColor = Color.DarkGray
+            ),
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(10.dp)
+                .border(5.dp, Color.DarkGray, RectangleShape)
+
+        ) {
+            Text("Add To Cart")
+        }
+
+    }
+}
+
