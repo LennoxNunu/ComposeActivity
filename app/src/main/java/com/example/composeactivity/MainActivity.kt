@@ -1,8 +1,10 @@
 package com.example.composeactivity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,7 +29,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MyLazyColumn()
+                    MyLazyColumn{
+                        Toast.makeText(this,it,Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -35,13 +39,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyLazyColumn(){
+fun MyLazyColumn(selectedItem: (String)->(Unit)){
     LazyColumn{
       items(count = 100){
           Text(
               text = "User Name $it",
               style = MaterialTheme.typography.h3,
               modifier = Modifier.padding(10.dp)
+                  .clickable { selectedItem("$it selected") }
           )
           Divider(color = Color.Black, thickness = 5.dp)
       }
