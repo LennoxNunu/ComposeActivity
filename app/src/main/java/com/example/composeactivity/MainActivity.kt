@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,12 +35,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-val count = mutableStateOf(0)
+
 
 @Preview(name = "MyButton")
 @Composable
 fun MyButton(){
     val context = LocalContext.current
+    val count = remember{mutableStateOf(0)}
     Button(onClick = {
         count.value = count.value+1
         Toast.makeText(context, "Count is : ${count.value}", Toast.LENGTH_SHORT).show()
