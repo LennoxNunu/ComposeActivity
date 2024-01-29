@@ -1,15 +1,20 @@
 package com.example.composeactivity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.composeactivity.ui.theme.ComposeActivityTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,27 +22,38 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeActivityTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
+                Column(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Greeting("Android")
+                    MyButton()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+val count = mutableStateOf(0)
 
-@Preview(showBackground = true)
+@Preview(name = "MyButton")
 @Composable
-fun DefaultPreview() {
-    ComposeActivityTheme {
-        Greeting("Android")
+fun MyButton(){
+    val context = LocalContext.current
+    Button(onClick = {
+        count.value = count.value+1
+        Toast.makeText(context, "Count is : ${count.value}", Toast.LENGTH_SHORT).show()
+    },
+        contentPadding = PaddingValues(16.dp),
+        border = BorderStroke(10.dp, Color.Black),
+        colors = ButtonDefaults.textButtonColors(
+            backgroundColor = Color.DarkGray,
+            contentColor = Color.White
+        )
+    ) {
+        Text("Count is : ${count.value}",
+            style = MaterialTheme.typography.h3,
+            modifier = Modifier.padding(5.dp)
+        )
     }
 }
