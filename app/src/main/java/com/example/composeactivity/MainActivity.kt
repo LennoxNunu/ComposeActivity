@@ -20,6 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composeactivity.ui.theme.ComposeActivityTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
@@ -43,33 +45,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current
 ) {
-
     var round by remember { mutableStateOf(1) }
     var total by remember { mutableStateOf(0.0) }
     var input by remember { mutableStateOf("") }
 
-//    LaunchedEffect(key1 = true ,  ){
-//        Toast.makeText(context,"Please, Start Counting ..",Toast.LENGTH_SHORT).show()
-//    }
-
-
-//        LaunchedEffect(key1 = round ,  ){
-//             Toast.makeText(context,"Please, start counting round $round",Toast.LENGTH_SHORT).show()
-//    }
-
     val scaffoldState : ScaffoldState = rememberScaffoldState()
+    val coroutineScope : CoroutineScope = rememberCoroutineScope()
 
     Scaffold(scaffoldState = scaffoldState) {
-
-        LaunchedEffect(key1 = round ,  ){
-
-            scaffoldState.snackbarHostState.showSnackbar(
-                message = "Please, start counting round $round",
-                duration = SnackbarDuration.Short
-            )
-        }
 
         Column(
             modifier = Modifier
@@ -104,6 +88,12 @@ fun MainScreen(
                 modifier = modifier.fillMaxWidth(),
                 onClick = {
                     total += input.toDouble()
+                    coroutineScope.launch {
+                        scaffoldState.snackbarHostState.showSnackbar(
+                            message = "Count updated",
+                            duration = SnackbarDuration.Short
+                        )
+                    }
                     if(total>300){
                         total = 0.0
                         input = ""
