@@ -1,5 +1,6 @@
 package com.example.composeactivity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
@@ -38,58 +39,84 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
     context: Context = LocalContext.current
 ) {
 
+    var round by remember { mutableStateOf(1) }
     var total by remember { mutableStateOf(0.0) }
     var input by remember { mutableStateOf("") }
 
-    Toast.makeText(context,"Please, Start Counting ..",Toast.LENGTH_SHORT).show()
+//    LaunchedEffect(key1 = true ,  ){
+//        Toast.makeText(context,"Please, Start Counting ..",Toast.LENGTH_SHORT).show()
+//    }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(50.dp),
-        verticalArrangement = Arrangement.SpaceEvenly
-    ) {
-        Text(
-            modifier = modifier.fillMaxWidth(),
-            text = "Total is ${total.toString()}",
-            fontWeight = FontWeight.Bold,
-            fontSize = 30.sp,
-            color = Color.DarkGray
-        )
-        OutlinedTextField(
-            modifier = modifier.fillMaxWidth(),
-            placeholder = { Text("Enter value here") },
-            value = input,
-            onValueChange = {
-                input = it
-            },
-            textStyle = TextStyle(
-                color = Color.LightGray,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            ),
-            label = { Text(text = "New count") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
 
-        Button(
-            modifier = modifier.fillMaxWidth(),
-            onClick = {
-                total += input.toDouble()
-            }
+//        LaunchedEffect(key1 = round ,  ){
+//             Toast.makeText(context,"Please, start counting round $round",Toast.LENGTH_SHORT).show()
+//    }
+
+    val scaffoldState : ScaffoldState = rememberScaffoldState()
+
+    Scaffold(scaffoldState = scaffoldState) {
+
+        LaunchedEffect(key1 = round ,  ){
+
+            scaffoldState.snackbarHostState.showSnackbar(
+                message = "Please, start counting round $round",
+                duration = SnackbarDuration.Short
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(50.dp),
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = "Count",
+                modifier = modifier.fillMaxWidth(),
+                text = "Total is ${total.toString()}",
+                fontWeight = FontWeight.Bold,
                 fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
+                color = Color.DarkGray
             )
+            OutlinedTextField(
+                modifier = modifier.fillMaxWidth(),
+                placeholder = { Text("Enter value here") },
+                value = input,
+                onValueChange = {
+                    input = it
+                },
+                textStyle = TextStyle(
+                    color = Color.LightGray,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                ),
+                label = { Text(text = "New count") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+
+            Button(
+                modifier = modifier.fillMaxWidth(),
+                onClick = {
+                    total += input.toDouble()
+                    if(total>300){
+                        total = 0.0
+                        input = ""
+                        round++
+                    }
+                }
+            ) {
+                Text(
+                    text = "Count",
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
-
