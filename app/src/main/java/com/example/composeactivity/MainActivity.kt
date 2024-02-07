@@ -2,6 +2,7 @@ package com.example.composeactivity
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -40,13 +41,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-   // context: Context = LocalContext.current
+    context: Context = LocalContext.current
 ) {
 
     var total by remember { mutableStateOf(0.0) }
     var input by remember { mutableStateOf("") }
 
-
+    Toast.makeText(context,"Please, Start Counting ..",Toast.LENGTH_SHORT).show()
 
     Column(
         modifier = Modifier
