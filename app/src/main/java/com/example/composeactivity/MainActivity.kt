@@ -1,16 +1,24 @@
 package com.example.composeactivity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.composeactivity.ui.theme.ComposeActivityTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    MainScreen()
                 }
             }
         }
@@ -30,14 +38,57 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+fun MainScreen(
+    modifier: Modifier = Modifier,
+   // context: Context = LocalContext.current
+) {
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeActivityTheme {
-        Greeting("Android")
+    var total by remember { mutableStateOf(0.0) }
+    var input by remember { mutableStateOf("") }
+
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(50.dp),
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Text(
+            modifier = modifier.fillMaxWidth(),
+            text = "Total is ${total.toString()}",
+            fontWeight = FontWeight.Bold,
+            fontSize = 30.sp,
+            color = Color.DarkGray
+        )
+        OutlinedTextField(
+            modifier = modifier.fillMaxWidth(),
+            placeholder = { Text("Enter value here") },
+            value = input,
+            onValueChange = {
+                input = it
+            },
+            textStyle = TextStyle(
+                color = Color.LightGray,
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            ),
+            label = { Text(text = "New count") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
+
+        Button(
+            modifier = modifier.fillMaxWidth(),
+            onClick = {
+                total += input.toDouble()
+            }
+        ) {
+            Text(
+                text = "Count",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }
+
