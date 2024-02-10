@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun HomeScreen(onNavigateToSecondScreen:()->Unit ,modifier: Modifier = Modifier){
+fun HomeScreen(onNavigateToSecondScreen:(String)->Unit ,modifier: Modifier = Modifier){
     var text by remember { mutableStateOf("") }
 
     Column(
@@ -43,7 +43,10 @@ fun HomeScreen(onNavigateToSecondScreen:()->Unit ,modifier: Modifier = Modifier)
 
         Button(
             onClick = {
-               onNavigateToSecondScreen()
+                if(!text.isNullOrBlank()){
+                    onNavigateToSecondScreen(text)
+                }
+
             },
             modifier = modifier.fillMaxWidth()
         ) {
