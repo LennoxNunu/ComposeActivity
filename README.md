@@ -1,6 +1,6 @@
 # ComposeActivity
-
-0 - main </br>
+## There are several branches, each explaining the fundamentals. </br>
+0 - main (this branch has nothing ) </br>
 1 - jetpackComposeModifiersAndOtherParameters </br>
 2 - columnLayout </br>
 3 - rowLayout </br>
