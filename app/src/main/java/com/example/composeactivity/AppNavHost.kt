@@ -12,7 +12,7 @@ fun AppNavHost(
 ){
     NavHost(navController = navController, startDestination = "home_screen"){
         composable(route = "home_screen"){
-            HomeScreen(navController)
+            HomeScreen(onNavigateToSecondScreen = {navController.navigate("second_screen")})
         }
 
         composable(route = "second_screen"){
